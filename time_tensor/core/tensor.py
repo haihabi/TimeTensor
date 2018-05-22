@@ -6,6 +6,8 @@ class TimeTensor(object):
     def __init__(self, data: np.ndarray = [], time: np.ndarray = []):
         self.time = time
         self.data = data
+        self.start_time = time[0]
+        self.end_time = time[-1]
         self.i = 0
 
     def copy(self):
@@ -52,18 +54,19 @@ class TimeTensor(object):
         :param stop_time:
         :return:
         '''
-        if start_time is None: start_time = self.time[0]
-        if stop_time is None: stop_time = self.time[-1]
+        if start_time is None: start_time = self.start_time
+        if stop_time is None: stop_time = self.end_time
         low_time = np.linspace(start_time, stop_time - slide_step,
                                np.ceil((stop_time - start_time) / slide_step).astype('int'))
         high_time = np.linspace(start_time + slide_step, stop_time,
                                 np.ceil((stop_time - start_time) / slide_step).astype('int'))
         time_vector = []
         data_vector = []
-        for lt, ht in zip(low_time, high_time):
+        for lt, ht in zip(low_time, high_time):  # loop over high and low time step
             data_vector.append(window_function(self.data[(self.time >= lt) * (self.time < ht), :]))
-            time_vector.append(ht)
-        return TimeTensor(data_vector, time_vector)
+            time_vector.append(ht)  # append time step
+        return TimeTensor(np.concatenate(data_vector, axis=0),
+                          time_vector)  # return a new time tensor after the sliding window
 
     def __iter__(self):
         """
