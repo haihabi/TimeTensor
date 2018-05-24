@@ -6,9 +6,21 @@ class TimeTensor(object):
     def __init__(self, data: np.ndarray = [], time: np.ndarray = []):
         self.time = time
         self.data = data
-        self.start_time = time[0]
-        self.end_time = time[-1]
         self.i = 0
+
+    def start_time(self) -> float:
+        """
+        The start time function return the last time stem of the time tensor
+        :return:  a float value of the start time
+        """
+        return None if len(self.data) == 0 else self.time[0]
+
+    def end_time(self) -> float:
+        """
+        The end time function return the last time stem of the time tensor
+        :return:  a float value of the end time
+        """
+        return None if len(self.data) == 0 else self.time[-1]
 
     def copy(self):
         """
