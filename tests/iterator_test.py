@@ -13,12 +13,13 @@ class IteratorTestCase(unittest.TestCase):
             i += 1
 
     def test_base_iterator2d(self):
-        data = np.concatenate([np.expand_dims(np.linspace(0, 8, 9).reshape([3, 3]), axis=0) for i in range(10)], axis=0)
+        data = np.concatenate([np.expand_dims(np.linspace(0, 8, 9).reshape([3, 3]), axis=0) for i in range(9)], axis=0)
         t0 = tt.as_tensor(data)
         i = 0
         for d, t in t0:
             self.assertTrue(t == i)
-            self.assertTrue(np.all(d == i))
+            self.assertTrue(np.all(d.flatten()[i] == i))
+            self.assertTrue(d.shape == (3, 3))
             i += 1
 
 

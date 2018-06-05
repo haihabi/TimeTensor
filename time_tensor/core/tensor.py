@@ -69,8 +69,8 @@ class TimeTensor(object):
         :param stop_time:
         :return:
         '''
-        if start_time is None: start_time = self.start_time
-        if stop_time is None: stop_time = self.end_time
+        if start_time is None: start_time = self.start_time()
+        if stop_time is None: stop_time = self.end_time()
         low_time = np.linspace(start_time, stop_time - slide_step,
                                np.ceil((stop_time - start_time) / slide_step).astype('int'))
         high_time = np.linspace(start_time + slide_step, stop_time,
