@@ -11,7 +11,7 @@ class SlidingWindowTest(unittest.TestCase):
         def sliding_function(data):
             return np.max(data, axis=0).reshape(1, -1)
 
-        st = tensor.sliding_window(2, sliding_function)
+        st = tt.sliding_window(tensor, 2, sliding_function)
         self.assertTrue(2 * len(st) == len(tensor))
 
 

@@ -1,5 +1,6 @@
 import numpy as np
 import copy
+import pickle
 
 
 class TimeTensor(object):
@@ -7,6 +8,26 @@ class TimeTensor(object):
         self.time = time
         self.data = data
         self.i = 0
+
+    def to_file(self, file_path):
+        with open(file_path, 'wb') as handle:
+            pickle.dump(self, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            handle.close()
+
+    def data_type(self):
+        """
+        This function return the data type of the time tensor
+        :return: Return the current data type
+        """
+        return self.data.dtype
+
+    def as_type(self, input_type):
+        """
+        The function create a new copy of the time tensor and cast other type.
+        :param input_type: The cast of the data type
+        :return: A copy of the current time tensor after casting to other type
+        """
+        return TimeTensor(data=self.data.astype(input_type), time=self.time)
 
     def start_time(self) -> float:
         """
@@ -55,33 +76,6 @@ class TimeTensor(object):
 
         self.time = np.insert(self.time, i, time, axis=0)  # insert
         return self
-
-    def sliding_window(self, slide_step: float, window_function, start_time: float = None,
-                       stop_time: float = None):
-        '''
-        This function run a sliding window function over the time tensor and
-        return the result in a new time tensor, The window function input is a ndarray of size NxM
-        where M is the dim of the current time tensor and N is the number of samples in the current calculation.
-        The output of the window function is ndarray of size 1xK one sample over K new features.
-        :param slide_step:
-        :param window_function:
-        :param start_time:
-        :param stop_time:
-        :return:
-        '''
-        if start_time is None: start_time = self.start_time()
-        if stop_time is None: stop_time = self.end_time()
-        low_time = np.linspace(start_time, stop_time - slide_step,
-                               np.ceil((stop_time - start_time) / slide_step).astype('int'))
-        high_time = np.linspace(start_time + slide_step, stop_time,
-                                np.ceil((stop_time - start_time) / slide_step).astype('int'))
-        time_vector = []
-        data_vector = []
-        for lt, ht in zip(low_time, high_time):  # loop over high and low time step
-            data_vector.append(window_function(self.data[(self.time >= lt) * (self.time < ht), :]))
-            time_vector.append(ht)  # append time step
-        return TimeTensor(np.concatenate(data_vector, axis=0),
-                          time_vector)  # return a new time tensor after the sliding window
 
     def __iter__(self):
         """

@@ -3,7 +3,7 @@ import time_tensor as tt
 import numpy as np
 
 
-class MyTestCase(unittest.TestCase):
+class TestBasicOperation(unittest.TestCase):
     def test_get_item(self):
         t0 = tt.as_tensor(np.linspace(0, 10, 9).reshape([1, -1]))
         self.assertTrue(np.any(t0[0] == 0))
@@ -28,6 +28,13 @@ class MyTestCase(unittest.TestCase):
         t0 = tt.as_tensor(np.linspace(0, 10, 9).reshape([1, -1]))
         t1 = t0 * 2
         self.assertTrue(t1.data[0, 1] > t0.data[0, 1])
+
+    def test_type_cast(self):
+        t0 = tt.as_tensor(np.linspace(0, 10, 9).reshape([1, -1]))
+        self.assertTrue(t0.data_type() == np.float64)
+        t1 = t0.as_type(np.int8)  # change data type
+        self.assertTrue(t0.data_type() == np.float64)
+        self.assertTrue(t1.data_type() == np.int8)
 
 
 if __name__ == '__main__':
