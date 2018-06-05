@@ -34,7 +34,7 @@ class TimeTensor(object):
         The function return the data dim.
         :return: int - The data dim
         """
-        return self.data.shape[1]
+        return self.data.shape[1:]
 
     def insert(self, data: np.ndarray, time: float):
         """
@@ -43,13 +43,16 @@ class TimeTensor(object):
         :param time: float - the data vector time value
         :return: TimeTensor - return the current instance of the TimeTensor
         """
-        data = np.asarray(data)  # make sure that the data is ndarray
-        assert len(data.shape) == 1  # make sure that the data is 1d vector
+        data = np.expand_dims(np.asarray(data), axis=0)  # make sure that the data is ndarray
         if len(self) > 0 and self.dim() != data.shape[
-            0]: raise ValueError  # check that dim size of the input must be the same as the current data
+                                           1:]:  # check that dim size of the input must be the same as the current data
+            raise ValueError
         i = np.searchsorted(self.time, time)  # search insertion index
-        self.data = np.insert(self.data, i, data, axis=0)  # insert the data in the index location
-        if len(self) == 0: self.data = self.data.reshape([1, -1])  # reshape data array to 2d in the first iteration
+        if len(self) == 0:
+            self.data = data
+        else:
+            self.data = np.insert(self.data, i, data, axis=0)  # insert the data in the index location
+
         self.time = np.insert(self.time, i, time, axis=0)  # insert
         return self
 

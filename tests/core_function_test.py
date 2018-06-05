@@ -9,12 +9,19 @@ class MyTestCase(unittest.TestCase):
         t0.insert([0, 1], 0)
         t0.insert([0, 2], 1)
         self.assertTrue(len(t0) == 2)
-        self.assertTrue(t0.dim() == 2)
+        self.assertTrue(t0.dim() == (2,))
 
     def test_copy(self):
         t0 = tt.as_tensor(np.linspace(0, 9, 10).reshape([-1, 1]))
         t1 = t0.copy()
         self.assertFalse(t1 == t0)
+
+    def test_insert2d(self):
+        t0 = tt.empty_tensor()
+        t0.insert(np.random.rand(2, 2), 0)
+        t0.insert(np.random.rand(2, 2), 1)
+        self.assertTrue(len(t0) == 2)
+        self.assertTrue(t0.dim() == (2, 2))
 
 
 if __name__ == '__main__':

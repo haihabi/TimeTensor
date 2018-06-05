@@ -10,8 +10,6 @@ def as_tensor(data: np.ndarray, time: np.ndarray = None) -> TimeTensor:
     :return: TimeTensor - TimeTensor based on the input data
     """
     assert isinstance(data, np.ndarray)
-    assert len(data.shape) == 2
-
     if time is None:  # time is None build time series of step 1 start with zero
         time = np.linspace(0, data.shape[0] - 1, data.shape[0])
     assert len(time) == data.shape[0]  # check that data and time size match
