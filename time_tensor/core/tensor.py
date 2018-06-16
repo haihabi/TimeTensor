@@ -9,6 +9,9 @@ class TimeTensor(object):
         self.data = data
         self.i = 0
 
+    def min_step(self) -> float:
+        return np.min(np.diff(np.sort(self.time)))
+
     def to_file(self, file_path):
         with open(file_path, 'wb') as handle:
             pickle.dump(self, handle, protocol=pickle.HIGHEST_PROTOCOL)
@@ -57,7 +60,7 @@ class TimeTensor(object):
         """
         return self.data.shape[1:]
 
-    def insert(self, data: np.ndarray, time: float):
+    def insert_sort(self, data: np.ndarray, time: float):
         """
         The function insert a data array of 1d in the location according to the time value.
         :param data: ndarray - a 1d array of the data vector
@@ -75,6 +78,11 @@ class TimeTensor(object):
             self.data = np.insert(self.data, i, data, axis=0)  # insert the data in the index location
 
         self.time = np.insert(self.time, i, time, axis=0)  # insert
+        return self
+
+    def insert(self, data: np.ndarray, time: float):
+        np.append(self.data, data)
+        np.append(self.time, time)
         return self
 
     def __iter__(self):

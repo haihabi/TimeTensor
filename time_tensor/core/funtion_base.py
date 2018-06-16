@@ -28,15 +28,3 @@ def empty_tensor() -> TimeTensor:
     :return: TimeTensor - empty TimeTensor
     """
     return TimeTensor()
-
-
-def data_concat(tensor_a: TimeTensor, tensor_b: TimeTensor) -> TimeTensor:
-    if len(tensor_a) != len(tensor_b):
-        raise Exception('Tensor length must be the same')
-    return TimeTensor(np.concatenate((tensor_a.data, tensor_b.data), axis=1), tensor_a.time)
-
-
-def time_concat(tensor_a: TimeTensor, tensor_b: TimeTensor) -> TimeTensor:
-    for d, t in tensor_b:
-        tensor_a.insert(d, t)
-    return tensor_a.copy()

@@ -4,10 +4,10 @@ import numpy as np
 
 
 class MyTestCase(unittest.TestCase):
-    def test_insert(self):
+    def test_insert_sort(self):
         t0 = tt.empty_tensor()
-        t0.insert([0, 1], 0)
-        t0.insert([0, 2], 1)
+        t0.insert_sort([0, 1], 0)
+        t0.insert_sort([0, 2], 1)
         self.assertTrue(len(t0) == 2)
         self.assertTrue(t0.dim() == (2,))
 
@@ -16,10 +16,10 @@ class MyTestCase(unittest.TestCase):
         t1 = t0.copy()
         self.assertFalse(t1 == t0)
 
-    def test_insert2d(self):
+    def test_insert2d_sort(self):
         t0 = tt.empty_tensor()
-        t0.insert(np.random.rand(2, 2), 0)
-        t0.insert(np.random.rand(2, 2), 1)
+        t0.insert_sort(np.random.rand(2, 2), 0)
+        t0.insert_sort(np.random.rand(2, 2), 1)
         self.assertTrue(len(t0) == 2)
         self.assertTrue(t0.dim() == (2, 2))
 
