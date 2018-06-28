@@ -53,10 +53,10 @@ class TimeTensor(object):
         """
         return copy.copy(self)
 
-    def dim(self) -> int:
+    def shape(self) -> list:
         """
-        The function return the data dim.
-        :return: int - The data dim
+        The function return the data shape.
+        :return: list - The data shape
         """
         return self.data.shape[1:]
 
@@ -68,8 +68,8 @@ class TimeTensor(object):
         :return: TimeTensor - return the current instance of the TimeTensor
         """
         data = np.expand_dims(np.asarray(data), axis=0)  # make sure that the data is ndarray
-        if len(self) > 0 and self.dim() != data.shape[
-                                           1:]:  # check that dim size of the input must be the same as the current data
+        if len(self) > 0 and self.shape() != data.shape[
+                                             1:]:  # check that dim size of the input must be the same as the current data
             raise ValueError
         i = np.searchsorted(self.time, time)  # search insertion index
         if len(self) == 0:
@@ -116,10 +116,10 @@ class TimeTensor(object):
     def __sub__(self, other):
         return TimeTensor(self.data - other, self.time)
 
-    def __getitem__(self, item):
-        status = self.time == item
-        if not any(status): raise IndexError
-        return self.data[status, :]
+    def __getitem__(self, *args, **kwargs):
+
+        args = tuple([tuple([slice(None, None, None), *args[0]])])
+        return TimeTensor(data=self.data.__getitem__(*args, **kwargs), time=self.time)
 
     def __len__(self) -> int:
         return len(self.time)
