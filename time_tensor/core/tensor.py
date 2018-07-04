@@ -1,13 +1,20 @@
 import numpy as np
 import copy
 import pickle
+from time_tensor.core.common import check_input_size
 
 
 class TimeTensor(object):
     def __init__(self, data: np.ndarray = [], time: np.ndarray = []):
+        # if not isinstance(data, np.ndarray): raise Exception('input data type must be numpy array')
+        # if len(data.shape) == 1: data = np.reshape(data, [-1, 1])
+
         self.time = time
         self.data = data
         self.i = 0
+
+    def is_sorted(self):
+        return np.array_equal(np.sort(self.time), self.time)
 
     def min_step(self) -> float:
         return np.min(np.diff(np.sort(self.time)))
@@ -105,24 +112,95 @@ class TimeTensor(object):
         return d, t
 
     def __add__(self, other):
-        return TimeTensor(self.data + other, self.time)
+        if isinstance(other, TimeTensor):
+            check_input_size(self, other)
+            return TimeTensor(self.data + other.data, self.time)
+        else:
+            return TimeTensor(self.data + other, self.time)
 
     def __truediv__(self, other):
-        return TimeTensor(self.data / other, self.time)
+        if isinstance(other, TimeTensor):
+            check_input_size(self, other)
+            return TimeTensor(np.divide(self.data, other.data), self.time)
+        else:
+            return TimeTensor(self.data / other, self.time)
 
     def __mul__(self, other):
-        return TimeTensor(self.data * other, self.time)
+        if isinstance(other, TimeTensor):
+            check_input_size(self, other)
+            return TimeTensor(np.multiply(self.data, other.data), self.time)
+        else:
+            return TimeTensor(self.data * other, self.time)
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
 
     def __sub__(self, other):
-        return TimeTensor(self.data - other, self.time)
+        if isinstance(other, TimeTensor):
+            check_input_size(self, other)
+            return TimeTensor(self.data - other.data, self.time)
+        else:
+            return TimeTensor(self.data - other, self.time)
 
     def __getitem__(self, *args, **kwargs):
-
-        args = tuple([tuple([slice(None, None, None), *args[0]])])
-        return TimeTensor(data=self.data.__getitem__(*args, **kwargs), time=self.time)
+        if isinstance(args[0], TimeTensor):
+            check_input_size(self, args[0])
+            return TimeTensor(data=self.data[args[0].data], time=self.time)
+        else:
+            if isinstance(args[0], tuple):
+                args = tuple([tuple([slice(None, None, None), *args[0]])])
+            else:
+                args = tuple([tuple([slice(None, None, None), args[0]])])
+            new_data = self.data.__getitem__(*args, **kwargs)
+            if len(new_data.shape) == 1:
+                new_data = np.reshape(new_data, [-1, 1])
+            return TimeTensor(data=new_data, time=self.time)
 
     def __len__(self) -> int:
         return len(self.time)
 
     def __copy__(self):
         return TimeTensor(self.data.copy(), self.time.copy())
+
+    def __eq__(self, other):
+        if isinstance(other, TimeTensor):
+            return super().__eq__(other)
+        else:
+            return TimeTensor(data=self.data == other, time=self.time)
+
+    def __lt__(self, other):  # less then
+        if isinstance(other, TimeTensor):
+            raise NotImplemented
+        else:
+            return TimeTensor(data=self.data < other, time=self.time)
+
+    def __le__(self, other):  # less equal
+        if isinstance(other, TimeTensor):
+            raise NotImplemented
+        else:
+            return TimeTensor(data=self.data <= other, time=self.time)
+
+    def __gt__(self, other):  # greater then
+        if isinstance(other, TimeTensor):
+            raise NotImplemented
+        else:
+            return TimeTensor(data=self.data > other, time=self.time)
+
+    def __ge__(self, other):
+        if isinstance(other, TimeTensor):
+            raise NotImplemented
+        else:
+            return TimeTensor(data=self.data >= other, time=self.time)
+
+    def __setitem__(self, key, value):
+        if isinstance(key, TimeTensor):
+            check_input_size(self, key)
+            self.data[key.data] = value
+        else:
+            if isinstance(key, tuple):
+                if len(key) != len(self.shape()): raise IndexError
+                key = tuple([slice(None, None, None), *key])
+            else:
+                if 1 != len(self.shape()): raise IndexError
+                key = tuple([slice(None, None, None), key])
+            self.data[key] = value

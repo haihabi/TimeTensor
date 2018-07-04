@@ -45,3 +45,25 @@ def alignment(tt_0: TimeTensor, tt_1: TimeTensor, method='remove'):
                                                                                    tt_1.time[status_1])
     else:
         raise Exception('unknown alignment method')
+
+
+def split(tt_0: TimeTensor, start=0, stop=-1):
+    if start < 0: raise Exception('start index must be bigger the zero')
+    if stop == -1: stop = len(tt_0)
+    if stop < 0: raise Exception('stop index must be bigger the zero')
+    return TimeTensor(data=tt_0.data[start:stop, :], time=tt_0.time[start:stop])
+
+
+def split_single_step(tt_0: TimeTensor):
+    if not tt_0.is_sorted():
+        tt_0 = time_unique(tt_0)
+    min_step = tt_0.min_step()
+    diff_vec = np.diff(tt_0.time)
+    split_index = np.where(diff_vec > min_step)[0]
+    if len(split_index) == 0:
+        return [tt_0]
+    else:
+        split_index = split_index + 1
+        split_index = np.insert(split_index, 0, 0)
+        split_index = np.append(split_index, -1)
+        return [split(tt_0, start, stop) for start, stop in zip(split_index[:-1], split_index[1:])]
