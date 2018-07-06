@@ -11,12 +11,14 @@ def split2sub_tensor(time_tensor, step_size, window_size, start_time: float = No
     :param window_size:
     :return:
     '''
+    if step_size > window_size: raise Exception('window size must be smaller then step size')
     if start_time is None: start_time = time_tensor.start_time()
     if stop_time is None: stop_time = time_tensor.end_time()
-    low_time = np.linspace(start_time, stop_time - window_size,
-                           np.ceil((stop_time - start_time) / step_size).astype('int'))
-    high_time = np.linspace(start_time + window_size, stop_time,
-                            np.ceil((stop_time - start_time) / step_size).astype('int'))
+    n = np.ceil((stop_time - start_time - window_size + 2 * step_size) / step_size).astype('int')
+    if n > len(time_tensor):
+        raise Exception('input length must be bigger than window size')
+    low_time = np.linspace(start_time, stop_time - window_size, n)
+    high_time = np.linspace(start_time + window_size, stop_time, n)
     data_vector = []
     for lt, ht in zip(low_time, high_time):  # loop over high and low time step
         data = time_tensor.data[(time_tensor.time >= lt) * (time_tensor.time < ht), :]

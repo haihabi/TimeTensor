@@ -1,1 +1,1 @@
-from time_tensor.lib.data_opearator.manipulation import flatten
+from time_tensor.lib.data_opearator.manipulation import flatten, concat

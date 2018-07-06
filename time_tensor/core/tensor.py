@@ -13,6 +13,9 @@ class TimeTensor(object):
         self.data = data
         self.i = 0
 
+    def get_time(self, index: int) -> np.ndarray:
+        return self.data[index, :]
+
     def is_sorted(self):
         return np.array_equal(np.sort(self.time), self.time)
 
