@@ -30,8 +30,10 @@ def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, s
     for lt, ht in zip(low_time, high_time):  # loop over high and low time step
         data = time_tensor.data[(time_tensor.time >= lt) * (time_tensor.time < ht), :]
         if len(data) > 0:
-            data_vector.append(window_function(data))
-            time_vector.append(ht)  # append time step
+            data_new = window_function(data)
+            if data_new is not None:
+                data_vector.append(data_new)
+                time_vector.append(ht)  # append time step
     if len(data_vector) == 0: return empty_tensor()
     return TimeTensor(np.concatenate(data_vector, axis=0),
                       np.asarray(time_vector))  # return a new time tensor after the sliding window
