@@ -4,7 +4,7 @@ from time_tensor.core.funtion_base import empty_tensor
 
 
 def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, start_time: float = None,
-                   stop_time: float = None, window_size: float = None) -> TimeTensor:
+                   stop_time: float = None, window_size: float = None, enable_no_data: bool = False) -> TimeTensor:
     '''
     This function run a sliding window function over the time tensor and
     return the result in a new time tensor, The window function input is a ndarray of size NxM
@@ -16,6 +16,7 @@ def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, s
     :param start_time:
     :param stop_time:
     :param window_size:
+    :param enable_no_data:
     :return:
     '''
     if start_time is None: start_time = time_tensor.start_time()
@@ -29,7 +30,7 @@ def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, s
     data_vector = []
     for lt, ht in zip(low_time, high_time):  # loop over high and low time step
         data = time_tensor.data[(time_tensor.time >= lt) * (time_tensor.time < ht), :]
-        if len(data) > 0:
+        if len(data) > 0 or enable_no_data:
             data_new = window_function(data)
             if data_new is not None:
                 data_vector.append(data_new)
