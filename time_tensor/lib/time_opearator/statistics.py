@@ -17,15 +17,7 @@ def standard(tt: TimeTensor):
     return np.sqrt(variance(tt))
 
 
-#
-#
-# def correlation(tt: TimeTensor):
-#     tt_flat = data_opearator.flatten(tt)
-#     tt_shape = tt_flat.shape()
-#     tt_mean = mean(tt)
-
-
-def cross_correlation(tt_0: TimeTensor, tt_1: TimeTensor, epsilon: float = 0.001):
+def correlation(tt_0: TimeTensor, tt_1: TimeTensor, epsilon: float = 0.001):
     if tt_0 == tt_1:
         return np.ones(tt_0.shape())
     if len(tt_0) != len(tt_1):
