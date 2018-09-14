@@ -52,3 +52,8 @@ def shift(tt_0: TimeTensor, input_shift):
     res_tt = tt_0.copy()
     res_tt.time = res_tt.time + input_shift
     return res_tt
+
+
+def slice(tt_0, start_time, stop_time):
+    index = np.where((tt_0.time >= start_time) * (tt_0.time <= stop_time))[0]
+    return TimeTensor(tt_0.data[index, :], tt_0.time[index])

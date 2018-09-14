@@ -13,3 +13,7 @@ def power(tt_0, tt_1):
         return TimeTensor(data=np.power(tt_0, tt_1.data), time=tt_1.time)
     else:
         raise Exception('one of the input instance must be a TimeTensor')
+
+
+def sqrt(tt_0):
+    return TimeTensor(np.sqrt(tt_0.data), tt_0.time)

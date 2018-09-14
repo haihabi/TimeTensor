@@ -1,6 +1,8 @@
 import numpy as np
 from time_tensor.core.tensor import TimeTensor
 from time_tensor.core.funtion_base import empty_tensor
+from time_tensor.lib.element_wise import sqrt
+from time_tensor.lib.time_opearator.manipulation import alignment
 
 
 def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, start_time: float = None,
@@ -38,3 +40,26 @@ def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, s
     if len(data_vector) == 0: return empty_tensor()
     return TimeTensor(np.concatenate(data_vector, axis=0),
                       np.asarray(time_vector))  # return a new time tensor after the sliding window
+
+
+def moving_mean(tt_0, window_size, index=0):
+    window = (1 / window_size) * np.ones(window_size)
+    data = np.convolve(tt_0.data[:, index], window, mode='same')
+    return TimeTensor(np.reshape(data, [-1, 1]), tt_0.time)
+
+
+def moving_second_moment(tt_0, window_size, index=0):
+    window = (1 / window_size) * np.ones(window_size)
+    data = np.convolve(np.power(tt_0.data[:, index], 2), window, mode='same')
+    return TimeTensor(np.reshape(data, [-1, 1]), tt_0.time)
+
+
+def moving_cross_correlation(tt_0, tt_1, window_size, epsilon=0.0001):
+    tt_0, tt_1 = alignment(tt_0, tt_1)
+    if len(tt_0) == 0 or len(tt_1) == 0: return None
+    mean_0 = moving_mean(tt_0, window_size)
+    mean_1 = moving_mean(tt_1, window_size)
+    xcorr_t = moving_mean((tt_0 - mean_0) * (tt_1 - mean_1), window_size)
+    scale = sqrt(moving_second_moment(tt_0 - mean_0, window_size)) * sqrt(
+        moving_second_moment(tt_1 - mean_1, window_size))
+    return xcorr_t / (scale + epsilon)
