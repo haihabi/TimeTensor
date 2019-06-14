@@ -13,6 +13,9 @@ class TimeTensor(object):
         self.data = data
         self.i = 0
 
+    def index_slice(self, start_index, stop_index):
+        return TimeTensor(self.data[start_index:stop_index, :], self.time[start_index:stop_index])
+
     def get_time(self, index: int) -> np.ndarray:
         return self.data[index, :]
 

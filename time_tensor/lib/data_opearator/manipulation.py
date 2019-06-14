@@ -21,7 +21,10 @@ def reshape(tt_0: TimeTensor, shape: list) -> TimeTensor:
     return TimeTensor(data=np.reshape(tt_0.data, shape), time=tt_0.time)
 
 
-def stack(tt_0: TimeTensor, tt_1: TimeTensor, axis=-1):
-    check_same_time(tt_0, tt_1)  # check that input have the same time
+def stack(*args, axis=-1):
+    if len(args) == 1:
+        args = args[0]
+    # check_same_time(tt_0, tt_1)  # check that input have the same time
     if axis >= 0: axis = axis + 1  # shift axis by because of the time domain
-    return TimeTensor(np.stack((tt_0.data, tt_1.data), axis=axis), tt_0.time)
+    new_data = np.stack([tt_c.data for tt_c in args], axis=axis)
+    return TimeTensor(new_data, args[0].time)

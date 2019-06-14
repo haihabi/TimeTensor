@@ -17,6 +17,29 @@ def time_concat(tt_a: TimeTensor, tt_b: TimeTensor) -> TimeTensor:
                       time=np.concatenate((tt_a.time, tt_b.time), axis=0))
 
 
+def filter(tt_0: TimeTensor, time_array: np.ndarray) -> TimeTensor:
+    _, status_0, status_1 = np.intersect1d(tt_0.time, time_array, return_indices=True)
+    return TimeTensor(tt_0.data[status_0, :], tt_0.time[status_0])
+
+
+def multiple_tesnor_alignment(tt_list) -> TimeTensor:
+    time_array = tt_list[0].time
+    for tt_c in tt_list:
+        print(len(time_array))
+        time_array = np.intersect1d(time_array, tt_c.time)
+    if len(time_array) == 0: return
+    return [filter(tt_c, time_array) for tt_c in tt_list]
+
+
+def alignment_by_reference(tt_list: list, reference: TimeTensor, aligned=True):
+    if not aligned:
+        tt_list = multiple_tesnor_alignment(tt_list)
+    _, status_0, status_1 = np.intersect1d(tt_list[0].time, reference.time, return_indices=True)
+    new_tt_list = [TimeTensor(tt_c.data[status_0, :], tt_c.time[status_0]) for tt_c in tt_list]
+    new_refernce = TimeTensor(reference.data[status_1, :], reference.time[status_1])
+    return new_tt_list, new_refernce
+
+
 def alignment(tt_0: TimeTensor, tt_1: TimeTensor, method='remove'):
     if method == 'remove':
         _, status_0, status_1 = np.intersect1d(tt_0.time, tt_1.time, return_indices=True)
