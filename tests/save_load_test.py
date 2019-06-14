@@ -9,7 +9,7 @@ class SaveLoadTest(unittest.TestCase):
         t0.insert_sort([0, 2], 1)
         t0.to_file('test')
         t1 = tt.from_file('test')
-        self.assertEqual(True, False)
+        self.assertTrue(t0 == t1)
 
 
 if __name__ == '__main__':

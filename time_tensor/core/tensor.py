@@ -168,12 +168,6 @@ class TimeTensor(object):
     def __copy__(self):
         return TimeTensor(self.data.copy(), self.time.copy())
 
-    def __eq__(self, other):
-        if isinstance(other, TimeTensor):
-            return super().__eq__(other)
-        else:
-            return TimeTensor(data=self.data == other, time=self.time)
-
     def __lt__(self, other):  # less then
         if isinstance(other, TimeTensor):
             raise NotImplemented
@@ -210,3 +204,6 @@ class TimeTensor(object):
                 if 1 != len(self.shape()): raise IndexError
                 key = tuple([slice(None, None, None), key])
             self.data[key] = value
+
+    def __eq__(self, obj):
+        return isinstance(obj, TimeTensor) and np.array_equal(self.data, obj.data) and np.array_equal(self.time, obj.time)
