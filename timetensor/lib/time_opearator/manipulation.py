@@ -1,5 +1,5 @@
 import numpy as np
-from time_tensor.core.tensor import TimeTensor
+from timetensor.core.tensor import TimeTensor
 
 
 def time_unique(tt: TimeTensor) -> TimeTensor:

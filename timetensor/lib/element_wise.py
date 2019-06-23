@@ -1,6 +1,6 @@
 import numpy as np
-from time_tensor.core.tensor import TimeTensor
-from time_tensor.core.common import check_input_size
+from timetensor.core.tensor import TimeTensor
+from timetensor.core.common import check_input_size
 
 
 def power(tt_0, tt_1):

@@ -1,6 +1,6 @@
 import numpy as np
-from time_tensor.core.tensor import TimeTensor
-from time_tensor.lib import time_opearator
+from timetensor.core.tensor import TimeTensor
+from timetensor.lib import time_opearator
 
 
 def _build_axis_list(tt):

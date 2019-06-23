@@ -1,5 +1,5 @@
 import pickle
-from time_tensor.core.tensor import TimeTensor
+from timetensor.core.tensor import TimeTensor
 
 
 def from_file(file_path) -> TimeTensor:

@@ -1,5 +1,5 @@
 from matplotlib import pyplot as plt
-from time_tensor.core.tensor import TimeTensor
+from timetensor.core.tensor import TimeTensor
 
 
 def plot(tt: TimeTensor):

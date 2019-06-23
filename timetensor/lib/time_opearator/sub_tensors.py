@@ -1,5 +1,5 @@
 import numpy as np
-from time_tensor.core.tensor import TimeTensor
+from timetensor.core.tensor import TimeTensor
 
 
 def split2sub_tensor(time_tensor, step_size, window_size, start_time: float = None, stop_time: float = None) -> list:

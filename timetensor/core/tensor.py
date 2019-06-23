@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 import pickle
-from time_tensor.core.common import check_input_size
+from timetensor.core.common import check_input_size
 
 
 class TimeTensor(object):

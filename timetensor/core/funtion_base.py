@@ -1,5 +1,5 @@
 import numpy as np
-from time_tensor.core.tensor import TimeTensor
+from timetensor.core.tensor import TimeTensor
 
 
 def as_tensor(data: np.ndarray, time: np.ndarray = None, is_sort=False) -> TimeTensor:

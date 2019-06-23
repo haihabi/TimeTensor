@@ -1,8 +1,8 @@
 import numpy as np
-from time_tensor.core.tensor import TimeTensor
-from time_tensor.core.funtion_base import empty_tensor
-from time_tensor.lib.element_wise import sqrt
-from time_tensor.lib.time_opearator.manipulation import alignment
+from timetensor.core.tensor import TimeTensor
+from timetensor.core.funtion_base import empty_tensor
+from timetensor.lib.element_wise import sqrt
+from timetensor.lib.time_opearator.manipulation import alignment
 
 
 def sliding_window(time_tensor: TimeTensor, step_size: float, window_function, start_time: float = None,
