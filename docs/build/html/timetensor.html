@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Time Tensor &#8212; Time Tensor 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Functions" href="functions.html" />
+    <link rel="prev" title="Welcome to Time Tensor’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="time-tensor">
+<h1>Time Tensor<a class="headerlink" href="#time-tensor" title="Permalink to this headline">¶</a></h1>
+<p>TimeTensor</p>
+<div class="section" id="module-timetensor.core.tensor">
+<span id="tensor"></span><h2>Tensor<a class="headerlink" href="#module-timetensor.core.tensor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="timetensor.core.tensor.TimeTensor">
+<em class="property">class </em><code class="sig-name descname">TimeTensor</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray = array([]</em>, <em class="sig-param">dtype=float64)</em>, <em class="sig-param">time: numpy.ndarray = array([]</em>, <em class="sig-param">dtype=float64)</em><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.as_type">
+<code class="sig-name descname">as_type</code><span class="sig-paren">(</span><em class="sig-param">input_type</em><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.as_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function create a new copy of the time tensor and cast other type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_type</strong> – The cast of the data type</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A copy of the current time tensor after casting to other type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function return a new copy of the current instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>TimeTensor - a copy of the current TimeTensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.data_type">
+<code class="sig-name descname">data_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.data_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function return the data type of the time tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Return the current data type</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.end_time">
+<code class="sig-name descname">end_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#timetensor.core.tensor.TimeTensor.end_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The end time function return the last time stem of the time tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a float value of the end time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.get_time">
+<code class="sig-name descname">get_time</code><span class="sig-paren">(</span><em class="sig-param">index: int</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#timetensor.core.tensor.TimeTensor.get_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.index_slice">
+<code class="sig-name descname">index_slice</code><span class="sig-paren">(</span><em class="sig-param">start_index</em>, <em class="sig-param">stop_index</em><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.index_slice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray</em>, <em class="sig-param">time: float</em><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.insert" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.insert_sort">
+<code class="sig-name descname">insert_sort</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray</em>, <em class="sig-param">time: float</em><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.insert_sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function insert a data array of 1d in the location according to the time value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – ndarray - a 1d array of the data vector</p></li>
+<li><p><strong>time</strong> – float - the data vector time value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TimeTensor - return the current instance of the TimeTensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.is_sorted">
+<code class="sig-name descname">is_sorted</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.is_sorted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.min_step">
+<code class="sig-name descname">min_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#timetensor.core.tensor.TimeTensor.min_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.shape">
+<code class="sig-name descname">shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#timetensor.core.tensor.TimeTensor.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function return the data shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list - The data shape</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.start_time">
+<code class="sig-name descname">start_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#timetensor.core.tensor.TimeTensor.start_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>The start time function return the last time stem of the time tensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a float value of the start time</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="timetensor.core.tensor.TimeTensor.to_file">
+<code class="sig-name descname">to_file</code><span class="sig-paren">(</span><em class="sig-param">file_path</em><span class="sig-paren">)</span><a class="headerlink" href="#timetensor.core.tensor.TimeTensor.to_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-timetensor.core.function_base">
+<span id="base-functions"></span><h2>Base Functions<a class="headerlink" href="#module-timetensor.core.function_base" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="timetensor.core.function_base.as_tensor">
+<code class="sig-name descname">as_tensor</code><span class="sig-paren">(</span><em class="sig-param">data: numpy.ndarray</em>, <em class="sig-param">time: numpy.ndarray = None</em>, <em class="sig-param">is_sort=False</em><span class="sig-paren">)</span> &#x2192; timetensor.core.tensor.TimeTensor<a class="headerlink" href="#timetensor.core.function_base.as_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function receive a 2d data array and 1d time array, then return a TimeTensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – ndarray - data 2d array the first dim is the time index and the second dim is the feature dim</p></li>
+<li><p><strong>time</strong> – ndarray - time 1d array</p></li>
+<li><p><strong>is_sort</strong> – bool - a flag is the input is sorted</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>TimeTensor - TimeTensor based on the input data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="timetensor.core.function_base.empty_tensor">
+<code class="sig-name descname">empty_tensor</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; timetensor.core.tensor.TimeTensor<a class="headerlink" href="#timetensor.core.function_base.empty_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function return an empty TimeTensor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an empty TimeTensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Time Tensor</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Time Tensor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-timetensor.core.tensor">Tensor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-timetensor.core.function_base">Base Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Functions</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Time Tensor’s documentation!</a></li>
+      <li>Next: <a href="functions.html" title="next chapter">Functions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Hai Victor Habi.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.1.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/timetensor.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

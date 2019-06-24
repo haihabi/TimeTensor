@@ -1,1 +1,1 @@
-from timetensor.core.funtion_base import as_tensor, empty_tensor
+from timetensor.core.function_base import as_tensor, empty_tensor

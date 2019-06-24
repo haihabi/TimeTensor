@@ -1,6 +1,6 @@
 import numpy as np
 from timetensor.core.tensor import TimeTensor
-from timetensor.lib import time_opearator
+from timetensor.lib import time_functions
 
 
 def mean(tt: TimeTensor):
@@ -21,7 +21,7 @@ def correlation(tt_0: TimeTensor, tt_1: TimeTensor, epsilon: float = 0.001):
     if tt_0 == tt_1:
         return np.ones(tt_0.shape())
     if len(tt_0) != len(tt_1):
-        tt_0, tt_1 = time_opearator.alignment(tt_0, tt_1)
+        tt_0, tt_1 = time_functions.alignment(tt_0, tt_1)
     tt_0_mean = mean(tt_0)
     tt_1_mean = mean(tt_1)
     tt_0_std = np.sqrt(variance(tt_0) + epsilon)

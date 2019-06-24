@@ -1,6 +1,6 @@
 import numpy as np
 from timetensor.core.tensor import TimeTensor
-from timetensor.core.funtion_base import as_tensor
+from timetensor.core.function_base import as_tensor
 from timetensor.core.common import check_same_time
 
 

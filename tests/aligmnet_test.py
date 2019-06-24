@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
             t = np.unique(np.random.randint(0, 100, 250))
             d = np.reshape(np.random.rand(len(t)), [-1, 1])
             tt_list.append(tt.as_tensor(d, t))
-        tt_list_new = tt.time_opearator.multiple_tesnor_alignment(tt_list)
+        tt_list_new = tt.time_functions.multiple_tensor_alignment(tt_list)
         for tt_old, tt_new in zip(tt_list, tt_list_new):
             self.assertTrue(len(tt_old) >= len(tt_new))
             print("a")

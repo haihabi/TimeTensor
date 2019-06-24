@@ -5,7 +5,14 @@ from timetensor.core.common import check_input_size
 
 
 class TimeTensor(object):
-    def __init__(self, data: np.ndarray = [], time: np.ndarray = []):
+    def __init__(self, data: np.ndarray = np.asarray([]), time: np.ndarray = np.asarray([])):
+        """
+        TimeTensor class,
+
+        :param data:
+        :param time:
+        """
+
         # if not isinstance(data, np.ndarray): raise Exception('input data type must be numpy array')
         # if len(data.shape) == 1: data = np.reshape(data, [-1, 1])
 
@@ -33,6 +40,7 @@ class TimeTensor(object):
     def data_type(self):
         """
         This function return the data type of the time tensor
+
         :return: Return the current data type
         """
         return self.data.dtype
@@ -40,6 +48,7 @@ class TimeTensor(object):
     def as_type(self, input_type):
         """
         The function create a new copy of the time tensor and cast other type.
+
         :param input_type: The cast of the data type
         :return: A copy of the current time tensor after casting to other type
         """
@@ -48,6 +57,7 @@ class TimeTensor(object):
     def start_time(self) -> float:
         """
         The start time function return the last time stem of the time tensor
+
         :return:  a float value of the start time
         """
         return None if len(self.data) == 0 else self.time[0]
@@ -55,6 +65,7 @@ class TimeTensor(object):
     def end_time(self) -> float:
         """
         The end time function return the last time stem of the time tensor
+
         :return:  a float value of the end time
         """
         return None if len(self.data) == 0 else self.time[-1]
@@ -62,6 +73,7 @@ class TimeTensor(object):
     def copy(self):
         """
         The function return a new copy of the current instance.
+
         :return: TimeTensor - a copy of the current TimeTensor
         """
         return copy.copy(self)
@@ -69,6 +81,7 @@ class TimeTensor(object):
     def shape(self) -> list:
         """
         The function return the data shape.
+
         :return: list - The data shape
         """
         return self.data.shape[1:]
@@ -76,6 +89,7 @@ class TimeTensor(object):
     def insert_sort(self, data: np.ndarray, time: float):
         """
         The function insert a data array of 1d in the location according to the time value.
+
         :param data: ndarray - a 1d array of the data vector
         :param time: float - the data vector time value
         :return: TimeTensor - return the current instance of the TimeTensor
@@ -206,4 +220,5 @@ class TimeTensor(object):
             self.data[key] = value
 
     def __eq__(self, obj):
-        return isinstance(obj, TimeTensor) and np.array_equal(self.data, obj.data) and np.array_equal(self.time, obj.time)
+        return isinstance(obj, TimeTensor) and np.array_equal(self.data, obj.data) and np.array_equal(self.time,
+                                                                                                      obj.time)

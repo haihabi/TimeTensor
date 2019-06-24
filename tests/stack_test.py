@@ -11,7 +11,7 @@ class MyTestCase(unittest.TestCase):
             t = t[:10]
             d = np.reshape(np.random.rand(len(t)), [-1, 1])
             tt_list.append(tt.as_tensor(d, t))
-        tt.data_opearator.stack(tt_list, axis=0)
+        tt.data_functions.stack(tt_list, axis=0)
 
 
 if __name__ == '__main__':

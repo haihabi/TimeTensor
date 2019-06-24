@@ -22,7 +22,7 @@ def filter(tt_0: TimeTensor, time_array: np.ndarray) -> TimeTensor:
     return TimeTensor(tt_0.data[status_0, :], tt_0.time[status_0])
 
 
-def multiple_tesnor_alignment(tt_list) -> TimeTensor:
+def multiple_tensor_alignment(tt_list) -> TimeTensor:
     time_array = tt_list[0].time
     for tt_c in tt_list:
         print(len(time_array))
@@ -33,7 +33,7 @@ def multiple_tesnor_alignment(tt_list) -> TimeTensor:
 
 def alignment_by_reference(tt_list: list, reference: TimeTensor, aligned=True):
     if not aligned:
-        tt_list = multiple_tesnor_alignment(tt_list)
+        tt_list = multiple_tensor_alignment(tt_list)
     _, status_0, status_1 = np.intersect1d(tt_list[0].time, reference.time, return_indices=True)
     new_tt_list = [TimeTensor(tt_c.data[status_0, :], tt_c.time[status_0]) for tt_c in tt_list]
     new_refernce = TimeTensor(reference.data[status_1, :], reference.time[status_1])

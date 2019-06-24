@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def calculate_correlation(input_x, input_y, epsilon=0.0001):
+def _calculate_correlation(input_x, input_y, epsilon=0.0001):
     s_x = np.std(input_x)
     s_y = np.std(input_y)
     scale = (s_x * s_y) + epsilon
@@ -17,7 +17,7 @@ def cross_correlation(input_tensor_a, input_tensor_b, step_size, n_steps):
         _, index_a, index_b = np.intersect1d(input_tensor_a.time, input_tensor_b.time + shift,
                                              return_indices=True)
         if len(index_a) == 0: continue
-        result.append(calculate_correlation(input_tensor_a.data[index_a], input_tensor_b.data[index_b]))
+        result.append(_calculate_correlation(input_tensor_a.data[index_a], input_tensor_b.data[index_b]))
         n_points.append(len(index_a))
         shift_vector_out.append(shift)
     return result, shift_vector_out, n_points
