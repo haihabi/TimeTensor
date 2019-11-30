@@ -1,5 +1,5 @@
 import unittest
-import timetensor as tt
+import time_tensor as tt
 import numpy as np
 from tests.common import generate_random_tensor
 

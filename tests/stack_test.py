@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-import timetensor as tt
+import time_tensor as tt
 
 
 class MyTestCase(unittest.TestCase):

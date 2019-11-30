@@ -1,5 +1,5 @@
 import unittest
-import timetensor as tt
+import time_tensor as tt
 
 
 class SaveLoadTest(unittest.TestCase):

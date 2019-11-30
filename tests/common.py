@@ -1,5 +1,5 @@
 import numpy as np
-import timetensor as tt
+import time_tensor as tt
 
 
 def generate_random_tensor(n_steps: int, shape: list):
